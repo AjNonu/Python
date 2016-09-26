@@ -3,7 +3,7 @@ import ast
 import mysql.connector
 import time
 
-token = "CAACEdEose0cBABZBDyN49ZBQSu7VB9Yi2LWg67ZA6aVQZAsLZCDk8tZCJLLaU9J45EZCzg70GvjRBrBTy4n4UESDzSlspmSi1Y9uBfSURTwZAtJTfpCnyftNpwjQlGU94oVPSvmEoTIoA7ibZBnLsJNvTbAbh5UQF8Q4y4nekDDKYxv40V6lBeG0gEZCS5ZCn9lNKRu1XIju5ALVMNNqRCPWaJC"
+token = ""
 
 url = "https://graph.facebook.com/508246595873195/posts?limit=1&access_token=%s" % token
 user_agent = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; en-US) AppleWebKit/534.3 (KHTML, like Gecko) Chrome/6.0.472.63 Safari/534.3'
@@ -54,10 +54,10 @@ def save_likes_data(obj_id, next_url):
             if "'" in user_name:
                 user_name = str(user_name)
                 user_name = user_name.replace("'", " ")
-            cnx = mysql.connector.connect(host='127.0.0.1', database='unilever', user='root', password='123456')
+            cnx = mysql.connector.connect(host='127.0.0.1', database='database', user='root', password='******')
             cursor = cnx.cursor()
             # sql Query
-            query = ("insert INTO likesdetail(objectID, User_ID, User_Name)  VALUES('" + obj_id + "', '" + user_id + "', '" + user_name + "');")
+            query = ("insert INTO TableName(objectID, User_ID, User_Name)  VALUES('" + obj_id + "', '" + user_id + "', '" + user_name + "');")
             try:
                 cursor.execute(query)
             except:
@@ -100,7 +100,7 @@ def save_comments_data(obj_id, next_url):
             if "'" in user_name:
                 user_name = str(user_name)
                 user_name = user_name.replace("'", " ")
-            cnx = mysql.connector.connect(host='127.0.0.1', database='unilever', user='root', password='123456')
+            cnx = mysql.connector.connect(host='127.0.0.1', database='DB', user='root', password='******')
             cursor = cnx.cursor()
             # sql Query
             query = ("insert INTO commentdetails(objectID, user_id, user_name, message, created_time)   VALUES('" + obj_id + "', '" + user_id + "', '" + user_name + "','" + message + "','" + created_time + "');")
@@ -139,7 +139,7 @@ def save_to_db(val, next_url):
     share_count = str(val['data'][0]['shares']['count'])
     # Save To DataBase
     # connect to database
-    cnx = mysql.connector.connect(host='127.0.0.1', database='unilever', user='root', password='123456')
+    cnx = mysql.connector.connect(host='127.0.0.1', database='Db', user='root', password='******')
     cursor = cnx.cursor()
     # sql Query
     query = (
